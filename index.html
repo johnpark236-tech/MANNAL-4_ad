@@ -60,7 +60,7 @@
         }
         .popup-content {
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 25px;
             width: 85%;
             max-width: 320px;
@@ -92,25 +92,30 @@
             margin-bottom: 20px;
         }
 
-        .hanja { font-size: 40px; font-weight: bold; color: #C71585; margin-bottom: 10px; }
+        .hanja { font-size: 40px; font-weight: bold; color: #C71585; margin-bottom: 10px; letter-spacing: 2px; }
         .options { display: flex; flex-direction: column; gap: 12px; }
+        
         button.option-btn {
             font-family: 'Jua', sans-serif;
             background: #FF69B4; color: white; border: 2px solid #FF69B4;
             padding: 15px; border-radius: 20px; font-size: 16px; cursor: pointer;
+            transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(255, 105, 180, 0.4);
         }
 
-        /* 하단 배너 스타일 */
+        /* 하단 광고 컨테이너 스타일 */
         .ad-container { width: 90%; max-width: 400px; text-align: center; margin-top: 10px; }
-        .ad-banner { width: 100%; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        /* 텍스트 배너(말풍선) 클릭 가능하게 수정 */
         .algo-bubble {
-            background: white; border: 2px solid #FF69B4; padding: 12px;
-            border-radius: 15px; margin-bottom: 15px; font-size: 14px; position: relative;
+            background: white; border: 2.5px solid #FF69B4; padding: 18px;
+            border-radius: 20px; font-size: 16px; position: relative;
+            color: #333; cursor: pointer; display: block; text-decoration: none;
+            transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(255, 105, 180, 0.1);
         }
-        .algo-bubble::after {
-            content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
-            border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 10px solid #FF69B4;
+        .algo-bubble:hover {
+            background: #FFF0F5; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(255, 105, 180, 0.2);
         }
+        .ad-notice { font-size: 10px; color: #999; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -120,17 +125,16 @@
 <div id="intro-screen" class="card">
     <h1>🌸 MANNAL 사자성어 🌸</h1>
     <p>재미있게 풀다 보면 어느새 지식왕!<br>지금 바로 시작해볼까요?</p>
-    <button class="start-btn" onclick="goToDifficultySelection()">게임 시작하기!</button>
+    <button class="start-btn" onclick="goToDifficultySelection()">신나게 시작해 보자 확인!</button>
 </div>
 
 <div id="ad-popup">
     <div class="popup-content">
         <h2 style="color: #FF1493; margin-top: 0;">💡 잠시 쉬어가는 시간!</h2>
-        <p id="popup-msg" style="font-size: 15px; margin-bottom: 20px; line-height: 1.5;"></p>
-        <a id="popup-link" href="" target="_blank" onclick="closeAdPopup()">
-            <img id="popup-img" src="" alt="추천 상품" style="width: 100%; border-radius: 15px; border: 2px solid #FFC0CB;">
+        <a id="popup-link" href="" target="_blank" onclick="closeAdPopup()" style="text-decoration: none;">
+            <div id="popup-msg" class="algo-bubble" style="margin-top:20px;"></div>
         </a>
-        <p style="font-size: 12px; color: #888; margin-top: 15px;">(위 광고 이미지를 클릭하면 게임으로 돌아갑니다)</p>
+        <p style="font-size: 12px; color: #888; margin-top: 20px;">(위 박스를 클릭하면 혜택 확인 후 게임으로 돌아갑니다)</p>
     </div>
 </div>
 
@@ -152,51 +156,43 @@
 </div>
 
 <div class="ad-container">
-    <p style="font-size: 11px; color: #666; margin-bottom: 8px;">"무료 서비스 유지를 위해 광고가 포함되어 있습니다. 🙏"</p>
-    <div class="algo-bubble" id="main-bubble">알고리즘 추천 아이템 로딩 중...</div>
-    <a id="main-link" href="" target="_blank">
-        <img id="main-img" src="" class="ad-banner">
+    <p style="font-size: 11px; color: #666; margin-bottom: 12px;">"무료 서비스 유지를 위해 광고가 포함되어 있습니다. 🙏"</p>
+    <a id="main-link" href="" target="_blank" style="text-decoration: none;">
+        <div class="algo-bubble" id="main-bubble">알고리즘 추천 아이템 로딩 중...</div>
     </a>
-    <p style="font-size: 10px; color: #999; margin-top: 10px;">이 포스팅은 쿠팡 파트너스 활동의 일환으로 수수료를 제공받습니다.</p>
+    <p class="ad-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로 수수료를 제공받습니다.</p>
 </div>
 
 <script>
-    /* 🛒 광고 로테이션 데이터 */
+    /* 🛒 광고 로테이션 데이터 (이미지 경로 삭제) */
     const adInventory = [
         {
-            img: "https://i.ibb.co/LzN2pYj/image-cf465a.png",
             link: "https://link.coupang.com/a/eEL62a",
-            msg: "사자성어 외우느라 목 아프시죠? 😉<br>알고리즘 추천! <b>목에 좋은 배도라지즙</b> 어때요?"
+            msg: "사자성어 공부하느라 목 뻐근하시죠? 😉<br>알고리즘 추천! <b>목에 좋은 배도라지즙</b> 어때요?"
         },
         {
-            img: "https://i.ibb.co/6P0q4Qf/image-cec2e0.png",
             link: "https://link.coupang.com/a/eEMFd8",
-            msg: "머리가 지끈거릴 땐 시원한 <b>달콤 팥빙수</b>!<br>당 충전하고 다시 도전해볼까요? 🍧"
+            msg: "열공 후엔 당 충전이 국룰! 🍧<br>시원하고 달콤한 <b>서울 빙수팥</b>으로 힐링하세요!"
         },
         {
-            img: "https://i.ibb.co/zXn12m6/image-cec317.png",
             link: "https://link.coupang.com/a/eEMHcD",
-            msg: "집중력 향상엔 비타민이 필수!<br>상큼한 <b>사과주스(ABCC)</b> 한 잔 하세요! 🍎"
+            msg: "집중력 떨어질 땐 비타민 수혈! 🍎<br>상큼한 <b>100% ABCC 사과주스</b> 구경하기"
         },
         {
-            img: "https://i.ibb.co/hZz0qQk/image-cebc73.png",
             link: "https://link.coupang.com/a/eEMK2Z",
-            msg: "가벼운 옷차림으로 가벼운 마음!<br><b>슬림 반팔 3종 세트</b> 구경해보세요! 👕"
+            msg: "공부할 때도 스타일은 포기 못 해! 👕<br>편안하고 깔끔한 <b>슬림 반팔 3종 세트</b>"
         }
     ];
 
     let currentAdIndex = 0;
-    let secondsLeft = 300; // 5분
+    let secondsLeft = 300;
     let timer;
 
     function updateAdDisplay() {
         const ad = adInventory[currentAdIndex];
         document.getElementById('main-bubble').innerHTML = ad.msg;
-        document.getElementById('main-img').src = ad.img;
         document.getElementById('main-link').href = ad.link;
-        
         document.getElementById('popup-msg').innerHTML = ad.msg;
-        document.getElementById('popup-img').src = ad.img;
         document.getElementById('popup-link').href = ad.link;
     }
 
@@ -208,7 +204,6 @@
             const s = secondsLeft % 60;
             document.getElementById('timer-display').innerText = 
                 `다음 보너스 타임까지: ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-            
             if (secondsLeft <= 0) {
                 document.getElementById('ad-popup').style.display = 'flex';
                 clearInterval(timer);
@@ -218,7 +213,6 @@
 
     function closeAdPopup() {
         document.getElementById('ad-popup').style.display = 'none';
-        // 🚀 광고 팝업 닫을 때 다음 아이템으로 교체
         currentAdIndex = (currentAdIndex + 1) % adInventory.length;
         updateAdDisplay();
         secondsLeft = 300;
@@ -226,6 +220,9 @@
     }
 
     window.onload = () => { updateAdDisplay(); };
+    
+    // (이하 startGame 및 기존 퀴즈 로직은 동일하므로 생략)
+    // ... [사용자님의 원본 사자성어 게임 스크립트 그대로 유지] ...
 
     function goToDifficultySelection() {
         document.getElementById('intro-screen').style.display = 'none';
@@ -236,12 +233,9 @@
         document.getElementById('difficulty-screen').style.display = 'none';
         document.getElementById('app').style.display = 'block';
         startAdTimer();
-        // 실제 게임 시작 로직 (idiomDB 로딩 등은 기존과 동일)
+        // 사자성어 셋팅 로직 실행...
     }
-
-    /* 아래는 사용자님이 제공해주신 기존 게임 로직입니다 */
-    // ... (idiomDB, generateQuestion, checkAnswer 등 기존 코드 삽입)
-   const idiomDB = [
+     const idiomDB = [
         // 🌱 초급 사자성어
         { difficulty: "초급", hanja: "一就月將", hangul: "일취월장", meaning: "날로 달로 나아지거나 발전함" },
         { difficulty: "초급", hanja: "大器晩成", hangul: "대기만성", meaning: "큰 사람이 되기 위해서는 많은 노력과 시간이 필요함" },
@@ -604,6 +598,5 @@
         }
     }
 </script>
-
 </body>
 </html>

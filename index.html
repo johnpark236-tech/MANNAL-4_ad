@@ -6,115 +6,29 @@
     <title>🌸 알쏭달쏭 사자성어 챌린지 🌸</title>
     <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
     <style>
-        body {
-            background-color: #FFF0F5;
-            font-family: 'Jua', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px 0;
-            color: #333;
-        }
+        body { background-color: #FFF0F5; font-family: 'Jua', sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; padding: 20px 0; color: #333; }
+        .timer-bar { width: 90%; max-width: 400px; text-align: right; margin-bottom: 10px; font-size: 14px; color: #FF69B4; font-weight: bold; }
+        .card { background: white; padding: 30px; border-radius: 30px; box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2); width: 90%; max-width: 400px; text-align: center; border: 4px solid #FFC0CB; margin-bottom: 20px; }
+        h1 { color: #FF69B4; font-size: 28px; margin-bottom: 5px; text-shadow: 1px 1px 2px rgba(255, 182, 193, 0.5); }
         
-        /* 상단 타이머 */
-        .timer-bar {
-            width: 90%;
-            max-width: 400px;
-            text-align: right;
-            margin-bottom: 10px;
-            font-size: 14px;
-            color: #FF69B4;
-            font-weight: bold;
-        }
-
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            border: 4px solid #FFC0CB;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            color: #FF69B4;
-            font-size: 28px;
-            margin-bottom: 5px;
-            text-shadow: 1px 1px 2px rgba(255, 182, 193, 0.5);
-        }
-
         /* 🚨 광고 팝업 스타일 */
-        #ad-popup {
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); 
-            z-index: 10000; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center;
-        }
-        .popup-content {
-            background: white;
-            padding: 30px;
-            border-radius: 25px;
-            width: 85%;
-            max-width: 320px;
-            text-align: center;
-        }
+        #ad-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 10000; flex-direction: column; justify-content: center; align-items: center; }
+        .popup-content { background: white; padding: 30px; border-radius: 25px; width: 85%; max-width: 320px; text-align: center; }
 
-        .start-btn {
-            font-family: 'Jua', sans-serif;
-            background: #FF69B4;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 20px;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(255, 105, 180, 0.4);
-            margin-top: 10px;
-            width: 100%;
-        }
-        .start-btn:hover { background: #FF1493; transform: translateY(-2px); }
-
-        .level-info {
-            background: #FFE4E1;
-            color: #D11585;
-            padding: 8px 15px;
-            border-radius: 20px;
-            display: inline-block;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
+        .start-btn { font-family: 'Jua', sans-serif; background: #FF69B4; color: white; border: none; padding: 15px 30px; border-radius: 20px; font-size: 20px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(255, 105, 180, 0.4); margin-top: 10px; width: 100%; }
+        .level-info { background: #FFE4E1; color: #D11585; padding: 8px 15px; border-radius: 20px; display: inline-block; font-size: 16px; margin-bottom: 20px; }
         .hanja { font-size: 40px; font-weight: bold; color: #C71585; margin-bottom: 10px; letter-spacing: 2px; }
         .options { display: flex; flex-direction: column; gap: 12px; }
-        
-        button.option-btn {
-            font-family: 'Jua', sans-serif;
-            background: #FF69B4; color: white; border: 2px solid #FF69B4;
-            padding: 15px; border-radius: 20px; font-size: 16px; cursor: pointer;
-            transition: all 0.3s ease; box-shadow: 0 4px 6px rgba(255, 105, 180, 0.4);
-        }
+        button.option-btn { font-family: 'Jua', sans-serif; background: #FF69B4; color: white; border: 2px solid #FF69B4; padding: 15px; border-radius: 20px; font-size: 16px; cursor: pointer; transition: 0.3s; }
 
-        /* 텍스트 광고(말풍선) 디자인 */
+        /* 하단 광고 컨테이너 */
         .ad-container { width: 90%; max-width: 400px; text-align: center; margin-top: 10px; }
-        .algo-bubble {
-            background: white; border: 2.5px solid #FF69B4; padding: 18px;
-            border-radius: 20px; font-size: 16px; position: relative;
-            color: #333; cursor: pointer; display: block; text-decoration: none;
-            transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(255, 105, 180, 0.1);
-            line-height: 1.5;
-        }
+        .algo-bubble { background: white; border: 2.5px solid #FF69B4; padding: 18px; border-radius: 20px; font-size: 16px; color: #333; cursor: pointer; display: block; text-decoration: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(255, 105, 180, 0.1); line-height: 1.5; }
         .algo-bubble:hover { background: #FFF0F5; transform: translateY(-3px); }
-        .ad-notice { font-size: 10px; color: #999; margin-top: 10px; }
+        .ad-notice { font-size: 10px; color: #999; margin-top: 10px; line-height: 1.4; }
+
+        /* 저작권 문구 스타일 */
+        .copyright { font-size: 11px; color: #bbb; margin-top: 30px; width: 90%; max-width: 400px; text-align: center; word-break: keep-all; }
     </style>
 </head>
 <body>
@@ -133,13 +47,13 @@
         <a id="popup-link" href="" target="_blank" onclick="closeAdPopup()" style="text-decoration: none;">
             <div id="popup-msg" class="algo-bubble" style="margin-top:20px;"></div>
         </a>
-        <p style="font-size: 12px; color: #888; margin-top: 20px;">(위 박스를 클릭하면 혜택 확인 후 게임으로 돌아갑니다)</p>
+        <p style="font-size: 11px; color: #888; margin-top: 20px;">(위 박스를 클릭하면 혜택 확인 후 게임이 재개됩니다)</p>
     </div>
 </div>
 
 <div id="difficulty-screen" class="card" style="display:none;">
     <h1>🎯 난이도 선택</h1>
-    <div class="diff-options">
+    <div class="diff-options" style="display: flex; flex-direction: column; gap: 12px;">
         <button class="start-btn" onclick="startGame('초급')">🌱 초급</button>
         <button class="start-btn" onclick="startGame('중급')">🌿 중급</button>
         <button class="start-btn" onclick="startGame('고급')">🔥 고급</button>
@@ -151,7 +65,7 @@
     <div id="progress-display" style="font-size: 14px; color: #FF69B4; margin-bottom: 10px;">진행도: 0 / 1</div>
     <div class="hanja" id="hanja-display"></div>
     <div class="options" id="options-container"></div>
-    <div id="message"></div>
+    <div id="message" style="margin-top:15px; color:#FF1493; font-weight:bold; height:20px;"></div>
 </div>
 
 <div class="ad-container">
@@ -162,33 +76,53 @@
     <p class="ad-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로 수수료를 제공받습니다.</p>
 </div>
 
+<div class="copyright">
+    Copyright 2026. <b>johnpark236-tech</b> All rights reserved.<br>
+    본 소프트웨어의 무단 복제, 수정 및 재배포를 금하며, 발견 시 법적 책임을 물을 수 있습니다.
+</div>
+
 <script>
-    /* 🛒 광고 데이터 (이미지 제외) */
+    /* 🛡️ 도메인 체크 (보안 장치) */
+    if (!window.location.hostname.includes("johnpark236-tech.github.io") && window.location.hostname !== "localhost") {
+        alert("이 프로그램은 무단 복제되어 사용할 수 없습니다.\n정식 출처: johnpark236-tech");
+        window.location.href = "https://johnpark236-tech.github.io/MANNAL-4_ad/";
+    }
+
     const adInventory = [
-        { link: "https://link.coupang.com/a/eEL62a", msg: "공부하느라 목 뻐근하시죠? 😉<br><b>배도라지즙 빼고!</b> 진짜 목에 좋은 배도라지즙!" },
-        { link: "https://link.coupang.com/a/eEMFd8", msg: "열공 후엔 당 충전이 국룰! 🍧<br>시원달달한 <b>서울 빙수팥</b>으로 힐링하세요!" },
+        { link: "https://link.coupang.com/a/eEL62a", msg: "사자성어 공부하느라 목 뻐근하시죠? 😉<br>알고리즘 추천! <b>목에 좋은 배도라지즙</b> 어때요?" },
+        { link: "https://link.coupang.com/a/eEMFd8", msg: "열공 후엔 당 충전이 국룰! 🍧<br>시원하고 달콤한 <b>서울 빙수팥</b>으로 힐링하세요!" },
         { link: "https://link.coupang.com/a/eEMHcD", msg: "집중력 향상엔 비타민 수혈! 🍎<br>상큼한 <b>100% ABCC 사과주스</b> 구경하기" },
-        { link: "https://link.coupang.com/a/eEMK2Z", msg: "공부할 때도 스타일은 포기 못 해! 👕<br>깔끔한 <b>슬림 반팔 3종 세트</b> 확인하기" }
+        { link: "https://link.coupang.com/a/eEMK2Z", msg: "공부할 때도 스타일은 포기 못 해! 👕<br>편안하고 깔끔한 <b>슬림 반팔 3종 세트</b>" }
     ];
 
-    /* 🔊 오디오 설정 */
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    let audioCtx;
-    function initAudio() { if (!audioCtx) audioCtx = new AudioContext(); if (audioCtx.state === 'suspended') audioCtx.resume(); }
-    function playTone(freq, type, duration, startTime) {
-        if (!audioCtx) return;
-        const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-        osc.type = type; osc.frequency.setValueAtTime(freq, audioCtx.currentTime + startTime);
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.start(audioCtx.currentTime + startTime);
-        gain.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + startTime + duration);
-        osc.stop(audioCtx.currentTime + startTime + duration);
-    }
-    function playDingDong() { initAudio(); playTone(659.25, 'sine', 0.5, 0); playTone(523.25, 'sine', 0.5, 0.4); }
-    function playBeepBeep() { initAudio(); playTone(300, 'square', 0.2, 0); playTone(300, 'square', 0.2, 0.3); }
+    let currentAdIndex = 0; let secondsLeft = 300; let timer;
 
-    /* 🚀 게임 데이터 및 변수 */
-    const idiomDB = [
+    function updateAdDisplay() {
+        const ad = adInventory[currentAdIndex];
+        document.getElementById('main-bubble').innerHTML = ad.msg;
+        document.getElementById('main-link').href = ad.link;
+        document.getElementById('popup-msg').innerHTML = ad.msg;
+        document.getElementById('popup-link').href = ad.link;
+    }
+
+    function startAdTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => {
+            secondsLeft--;
+            const m = Math.floor(secondsLeft / 60); const s = secondsLeft % 60;
+            document.getElementById('timer-display').innerText = `다음 보너스 타임까지: ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            if (secondsLeft <= 0) { document.getElementById('ad-popup').style.display = 'flex'; clearInterval(timer); }
+        }, 1000);
+    }
+
+    function closeAdPopup() {
+        document.getElementById('ad-popup').style.display = 'none';
+        currentAdIndex = (currentAdIndex + 1) % adInventory.length;
+        updateAdDisplay(); secondsLeft = 300; startAdTimer();
+    }
+
+    /* 🚀 게임 로직 (간략화 버전 - 원본 idiomDB를 이곳에 넣으세요) */
+    let idiomDB = [
         { difficulty: "초급", hanja: "一就月將", hangul: "일취월장", meaning: "날로 달로 나아지거나 발전함" },
         { difficulty: "초급", hanja: "大器晩成", hangul: "대기만성", meaning: "큰 사람이 되기 위해서는 많은 노력과 시간이 필요함" },
         { difficulty: "초급", hanja: "作心三일", hangul: "작심삼일", meaning: "단단히 먹은 마음이 사흘을 가지 못함" },
@@ -369,98 +303,42 @@
         { difficulty: "고급", hanja: " 有口無言", hangul: "유구무언", meaning: "입은 있으나 할 말이 없다는 뜻으로, 변명할 여지가 없음" }
     ];
 
-    let fullDifficultyDB = []; let filteredDB = []; let solvedMeanings = [];
-    let currentLevel = 1; let questionsToAnswer = 1; let currentQuestionCount = 0; let currentCorrectAnswer = "";
-    let currentAdIndex = 0; let secondsLeft = 300; let timer;
+    let fullDifficultyDB = []; let filteredDB = []; let currentLevel = 1; let questionsToAnswer = 1; let currentQuestionCount = 0; let currentCorrectAnswer = "";
 
-    /* 📱 화면 전환 및 광고 로직 */
-    function updateAdDisplay() {
-        const ad = adInventory[currentAdIndex];
-        document.getElementById('main-bubble').innerHTML = ad.msg;
-        document.getElementById('main-link').href = ad.link;
-        document.getElementById('popup-msg').innerHTML = ad.msg;
-        document.getElementById('popup-link').href = ad.link;
-    }
-
-    function startAdTimer() {
-        clearInterval(timer);
-        timer = setInterval(() => {
-            secondsLeft--;
-            const m = Math.floor(secondsLeft / 60);
-            const s = secondsLeft % 60;
-            document.getElementById('timer-display').innerText = `다음 보너스 타임까지: ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
-            if (secondsLeft <= 0) {
-                document.getElementById('ad-popup').style.display = 'flex';
-                clearInterval(timer);
-            }
-        }, 1000);
-    }
-
-    function closeAdPopup() {
-        document.getElementById('ad-popup').style.display = 'none';
-        currentAdIndex = (currentAdIndex + 1) % adInventory.length;
-        updateAdDisplay();
-        secondsLeft = 300;
-        startAdTimer();
-    }
-
-    function goToDifficultySelection() {
-        initAudio();
-        document.getElementById("intro-screen").style.display = "none";
-        document.getElementById("difficulty-screen").style.display = "block";
-    }
-
-    function startGame(selectedDifficulty) {
-        initAudio();
-        fullDifficultyDB = idiomDB.filter(item => item.difficulty === selectedDifficulty);
+    function goToDifficultySelection() { document.getElementById("intro-screen").style.display = "none"; document.getElementById("difficulty-screen").style.display = "block"; }
+    function startGame(diff) {
+        fullDifficultyDB = idiomDB.filter(item => item.difficulty === diff);
         filteredDB = [...fullDifficultyDB];
-        solvedMeanings = [];
         document.getElementById("difficulty-screen").style.display = "none";
         document.getElementById("app").style.display = "block";
-        document.getElementById("level-display").innerText = `${selectedDifficulty} - Level 1`;
-        generateQuestion();
-        startAdTimer();
+        document.getElementById("level-display").innerText = `${diff} - Level 1`;
+        generateQuestion(); startAdTimer();
     }
 
     function generateQuestion() {
-        document.getElementById("message").innerText = "";
-        document.getElementById("progress-display").innerText = `현재 레벨 진행도: ${currentQuestionCount} / ${questionsToAnswer}`;
-        if (filteredDB.length === 0) {
-            alert("🎉 모든 문제를 클리어하셨습니다!");
-            filteredDB = [...fullDifficultyDB]; solvedMeanings = []; currentLevel = 1;
-        }
-        const correctIdiom = filteredDB[Math.floor(Math.random() * filteredDB.length)];
-        currentCorrectAnswer = correctIdiom.meaning;
-        document.getElementById("hanja-display").innerHTML = `${correctIdiom.hanja || correctIdiom.파자}<br>(${correctIdiom.hangul})`;
-        
-        let wrongOptions = fullDifficultyDB.filter(item => item.meaning !== currentCorrectAnswer);
-        wrongOptions = wrongOptions.sort(() => 0.5 - Math.random()).slice(0, 3);
-        let options = [currentCorrectAnswer, ...wrongOptions.map(item => item.meaning)].sort(() => 0.5 - Math.random());
-
-        const container = document.getElementById("options-container");
-        container.innerHTML = "";
+        if (filteredDB.length === 0) { filteredDB = [...fullDifficultyDB]; currentLevel = 1; }
+        const correct = filteredDB[Math.floor(Math.random() * filteredDB.length)];
+        currentCorrectAnswer = correct.meaning;
+        document.getElementById("hanja-display").innerHTML = `${correct.hanja}<br>(${correct.hangul})`;
+        let wrong = fullDifficultyDB.filter(item => item.meaning !== correct.meaning).sort(() => 0.5 - Math.random()).slice(0, 3);
+        let options = [correct.meaning, ...wrong.map(i => i.meaning)].sort(() => 0.5 - Math.random());
+        const container = document.getElementById("options-container"); container.innerHTML = "";
         options.forEach(text => {
-            const btn = document.createElement("button");
-            btn.className = "option-btn"; btn.innerText = text;
-            btn.onclick = () => checkAnswer(text);
-            container.appendChild(btn);
+            const btn = document.createElement("button"); btn.className = "option-btn"; btn.innerText = text;
+            btn.onclick = () => checkAnswer(text); container.appendChild(btn);
         });
     }
 
-    function checkAnswer(selected) {
-        if (selected === currentCorrectAnswer) {
-            playDingDong(); currentQuestionCount++;
-            filteredDB = filteredDB.filter(item => item.meaning !== currentCorrectAnswer);
+    function checkAnswer(ans) {
+        if (ans === currentCorrectAnswer) {
+            currentQuestionCount++; filteredDB = filteredDB.filter(i => i.meaning !== ans);
             document.getElementById("message").innerText = "정답입니다! 💕";
             setTimeout(() => {
-                if (currentQuestionCount >= questionsToAnswer) {
-                    currentLevel++; questionsToAnswer = currentLevel; currentQuestionCount = 0;
-                    alert(`레벨 업! 현재 레벨: ${currentLevel}`);
-                }
+                if (currentQuestionCount >= questionsToAnswer) { currentLevel++; questionsToAnswer = currentLevel; currentQuestionCount = 0; alert("레벨 업!"); }
                 generateQuestion();
             }, 800);
         } else {
-            playBeepBeep(); document.getElementById("message").innerText = "앗! 틀렸어요. 처음부터 다시! 😢";
+            document.getElementById("message").innerText = "앗! 틀렸어요. 처음부터 다시! 😢";
             currentQuestionCount = 0; setTimeout(generateQuestion, 1000);
         }
     }

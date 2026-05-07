@@ -13,22 +13,35 @@
         
         /* 🚨 광고 팝업 스타일 */
         #ad-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 10000; flex-direction: column; justify-content: center; align-items: center; }
-        .popup-content { background: white; padding: 30px; border-radius: 25px; width: 85%; max-width: 320px; text-align: center; }
+        .popup-content { background: white; padding: 20px; border-radius: 30px; width: 85%; max-width: 350px; text-align: center; }
 
         .start-btn { font-family: 'Jua', sans-serif; background: #FF69B4; color: white; border: none; padding: 15px 30px; border-radius: 20px; font-size: 20px; cursor: pointer; transition: all 0.2s ease; box-shadow: 0 4px 6px rgba(255, 105, 180, 0.4); margin-top: 10px; width: 100%; }
-        .level-info { background: #FFE4E1; color: #D11585; padding: 8px 15px; border-radius: 20px; display: inline-block; font-size: 16px; margin-bottom: 20px; }
+        .start-btn:hover { background: #FF1493; transform: translateY(-2px); }
+
         .hanja { font-size: 40px; font-weight: bold; color: #C71585; margin-bottom: 10px; letter-spacing: 2px; }
         .options { display: flex; flex-direction: column; gap: 12px; }
         button.option-btn { font-family: 'Jua', sans-serif; background: #FF69B4; color: white; border: 2px solid #FF69B4; padding: 15px; border-radius: 20px; font-size: 16px; cursor: pointer; transition: 0.3s; }
 
-        /* 하단 광고 컨테이너 */
+        /* ✨ 프리미엄 광고 카드 디자인 */
         .ad-container { width: 90%; max-width: 400px; text-align: center; margin-top: 10px; }
-        .algo-bubble { background: white; border: 2.5px solid #FF69B4; padding: 18px; border-radius: 20px; font-size: 16px; color: #333; cursor: pointer; display: block; text-decoration: none; transition: 0.2s; box-shadow: 0 4px 12px rgba(255, 105, 180, 0.1); line-height: 1.5; }
-        .algo-bubble:hover { background: #FFF0F5; transform: translateY(-3px); }
-        .ad-notice { font-size: 10px; color: #999; margin-top: 10px; line-height: 1.4; }
+        .premium-ad-card {
+            background: white; border: 3px solid #FF69B4; border-radius: 25px;
+            overflow: hidden; cursor: pointer; display: block; text-decoration: none;
+            transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(255, 105, 180, 0.2);
+            animation: pulse 2s infinite; position: relative;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 105, 180, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 105, 180, 0); }
+        }
+        .ad-img-box { width: 100%; height: 180px; overflow: hidden; background: #f9f9f9; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid #FFE4E1; }
+        .ad-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .ad-text-content { padding: 15px; color: #333; }
+        .ad-title { font-size: 17px; margin-bottom: 10px; line-height: 1.4; font-weight: bold; }
+        .view-more-btn { display: inline-block; background: linear-gradient(45deg, #FF69B4, #FF1493); color: white; padding: 8px 20px; border-radius: 50px; font-size: 14px; margin-top: 5px; box-shadow: 0 4px 10px rgba(255, 20, 147, 0.3); }
 
-        /* 저작권 문구 스타일 */
-        .copyright { font-size: 11px; color: #bbb; margin-top: 30px; width: 90%; max-width: 400px; text-align: center; word-break: keep-all; }
+        .copyright { font-size: 11px; color: #bbb; margin-top: 30px; text-align: center; line-height: 1.4; padding-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -43,11 +56,15 @@
 
 <div id="ad-popup">
     <div class="popup-content">
-        <h2 style="color: #FF1493; margin-top: 0;">💡 잠시 쉬어가는 시간!</h2>
-        <a id="popup-link" href="" target="_blank" onclick="closeAdPopup()" style="text-decoration: none;">
-            <div id="popup-msg" class="algo-bubble" style="margin-top:20px;"></div>
+        <h2 style="color: #FF1493; margin-top: 0;">💡 보너스 타임!</h2>
+        <a id="popup-link" href="" target="_blank" onclick="closeAdPopup()" class="premium-ad-card">
+            <div class="ad-img-box"><img id="popup-img" src=""></div>
+            <div class="ad-text-content">
+                <div id="popup-msg" class="ad-title"></div>
+                <div class="view-more-btn">지금 최저가 확인하기 ▶</div>
+            </div>
         </a>
-        <p style="font-size: 11px; color: #888; margin-top: 20px;">(위 박스를 클릭하면 혜택 확인 후 게임이 재개됩니다)</p>
+        <p style="font-size: 11px; color: #888; margin-top: 15px;">(위 상품을 확인하시면 게임이 재개됩니다)</p>
     </div>
 </div>
 
@@ -69,11 +86,15 @@
 </div>
 
 <div class="ad-container">
-    <p style="font-size: 11px; color: #666; margin-bottom: 12px;">"무료 서비스 유지를 위해 광고가 포함되어 있습니다. 🙏"</p>
-    <a id="main-link" href="" target="_blank" style="text-decoration: none;">
-        <div class="algo-bubble" id="main-bubble">알고리즘 추천 아이템 로딩 중...</div>
+    <p style="font-size: 11px; color: #666; margin-bottom: 10px;">"무료 서비스 유지를 위한 알고리즘 추천 🎁"</p>
+    <a id="main-link" href="" target="_blank" class="premium-ad-card">
+        <div class="ad-img-box"><img id="main-img" src=""></div>
+        <div class="ad-text-content">
+            <div id="main-bubble" class="ad-title"></div>
+            <div class="view-more-btn">자세히 보기 및 구매 ▶</div>
+        </div>
     </a>
-    <p class="ad-notice">이 포스팅은 쿠팡 파트너스 활동의 일환으로 수수료를 제공받습니다.</p>
+    <p style="font-size: 10px; color: #999; margin-top: 10px;">이 포스팅은 쿠팡 파트너스 활동의 일환으로 수수료를 제공받습니다.</p>
 </div>
 
 <div class="copyright">
@@ -84,15 +105,32 @@
 <script>
     /* 🛡️ 도메인 체크 (보안 장치) */
     if (!window.location.hostname.includes("johnpark236-tech.github.io") && window.location.hostname !== "localhost") {
-        alert("이 프로그램은 무단 복제되어 사용할 수 없습니다.\n정식 출처: johnpark236-tech");
+        alert("이 프로그램은 무단 복제되어 사용할 수 없습니다.\n출처: johnpark236-tech");
         window.location.href = "https://johnpark236-tech.github.io/MANNAL-4_ad/";
     }
 
+    /* 🛒 [데이터 업데이트] 확장자 및 상품명 변경 완료 */
     const adInventory = [
-        { link: "https://link.coupang.com/a/eEL62a", msg: "사자성어 공부하느라 목 뻐근하시죠? 😉<br>알고리즘 추천! <b>목에 좋은 배도라지즙</b> 어때요?" },
-        { link: "https://link.coupang.com/a/eEMFd8", msg: "열공 후엔 당 충전이 국룰! 🍧<br>시원하고 달콤한 <b>서울 빙수팥</b>으로 힐링하세요!" },
-        { link: "https://link.coupang.com/a/eEMHcD", msg: "집중력 향상엔 비타민 수혈! 🍎<br>상큼한 <b>100% ABCC 사과주스</b> 구경하기" },
-        { link: "https://link.coupang.com/a/eEMK2Z", msg: "공부할 때도 스타일은 포기 못 해! 👕<br>편안하고 깔끔한 <b>슬림 반팔 3종 세트</b>" }
+        {
+            img: "image_cf465a.png", 
+            link: "https://link.coupang.com/a/eEL62a",
+            msg: "사자성어 공부하느라 목 뻐근하시죠? 😉<br><b>시원~한 배도라지즙</b>으로 목 건강 챙기세요!"
+        },
+        {
+            img: "image_c4d1f7.png", 
+            link: "https://link.coupang.com/a/eEMFd8",
+            msg: "침 고이는 비주얼! 🍧<br><b>달콤한 서울 빙수팥</b>으로 당 충전 가즈아!"
+        },
+        {
+            img: "image_c4d272.png", 
+            link: "https://link.coupang.com/a/eEMHcD",
+            msg: "생기 넘치는 하루! ✨<br>영양 가득 <b>상큼달콤 과채주스</b> 한 잔!"
+        },
+        {
+            img: "image_c4d1d4.jpg", // 이 파일만 .jpg 주의
+            link: "https://link.coupang.com/a/eEMK2Z",
+            msg: "완벽한 핏, 여신 매력 발산! 👗<br>편안한 <b>슬림 반팔 3종 세트</b>"
+        }
     ];
 
     let currentAdIndex = 0; let secondsLeft = 300; let timer;
@@ -100,8 +138,10 @@
     function updateAdDisplay() {
         const ad = adInventory[currentAdIndex];
         document.getElementById('main-bubble').innerHTML = ad.msg;
+        document.getElementById('main-img').src = ad.img;
         document.getElementById('main-link').href = ad.link;
         document.getElementById('popup-msg').innerHTML = ad.msg;
+        document.getElementById('popup-img').src = ad.img;
         document.getElementById('popup-link').href = ad.link;
     }
 
@@ -121,9 +161,8 @@
         updateAdDisplay(); secondsLeft = 300; startAdTimer();
     }
 
-    /* 🚀 게임 로직 (간략화 버전 - 원본 idiomDB를 이곳에 넣으세요) */
-    let idiomDB = [
-        { difficulty: "초급", hanja: "一就月將", hangul: "일취월장", meaning: "날로 달로 나아지거나 발전함" },
+    /* 🚀 게임 로직 (사용자님의 기존 idiomDB 데이터 150개를 여기에 모두 넣으세요) */
+    const idiomDB = [        { difficulty: "초급", hanja: "一就月將", hangul: "일취월장", meaning: "날로 달로 나아지거나 발전함" },
         { difficulty: "초급", hanja: "大器晩成", hangul: "대기만성", meaning: "큰 사람이 되기 위해서는 많은 노력과 시간이 필요함" },
         { difficulty: "초급", hanja: "作心三일", hangul: "작심삼일", meaning: "단단히 먹은 마음이 사흘을 가지 못함" },
         { difficulty: "초급", hanja: "結者解之", hangul: "결자해지", meaning: "일을 맺은 사람이 풀어야 한다는 뜻으로, 일을 저지른 사람이 해결해야 함" },
@@ -312,7 +351,7 @@
         document.getElementById("difficulty-screen").style.display = "none";
         document.getElementById("app").style.display = "block";
         document.getElementById("level-display").innerText = `${diff} - Level 1`;
-        generateQuestion(); startAdTimer();
+        generateQuestion(); updateAdDisplay(); startAdTimer();
     }
 
     function generateQuestion() {
@@ -334,8 +373,11 @@
             currentQuestionCount++; filteredDB = filteredDB.filter(i => i.meaning !== ans);
             document.getElementById("message").innerText = "정답입니다! 💕";
             setTimeout(() => {
-                if (currentQuestionCount >= questionsToAnswer) { currentLevel++; questionsToAnswer = currentLevel; currentQuestionCount = 0; alert("레벨 업!"); }
-                generateQuestion();
+                if (currentQuestionCount >= questionsToAnswer) {
+                    currentLevel++; questionsToAnswer = currentLevel; currentQuestionCount = 0;
+                    document.getElementById("level-display").innerText = document.getElementById("level-display").innerText.split(' - ')[0] + ` - Level ${currentLevel}`;
+                }
+                generateQuestion(); document.getElementById("message").innerText = "";
             }, 800);
         } else {
             document.getElementById("message").innerText = "앗! 틀렸어요. 처음부터 다시! 😢";
